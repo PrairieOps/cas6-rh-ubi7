@@ -2,7 +2,7 @@
 
 Docs go here.
 
-Create a [github access token](https://github.com/settings/tokens)
+Create a [github access token](https://github.com/settings/tokens) with at least the `read:packages` scope.
 
 docker login
 
