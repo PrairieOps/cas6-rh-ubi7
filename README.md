@@ -2,7 +2,7 @@
 
 Docs go here.
 
-Create a [github access token](https://github.com/settings/tokens) with at least the `['public_repo', 'read:packages']` scopes.
+Create a [github access token](https://github.com/settings/tokens) with at least the `['repo', 'read:packages']` scopes.
 
 docker login
 
