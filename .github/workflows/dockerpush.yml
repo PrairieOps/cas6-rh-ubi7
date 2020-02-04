@@ -17,19 +17,14 @@ env:
   IMAGE_NAME: cas6-rh-ubi7
 
 jobs:
-  redhat_login:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log into registry.redhat.io
-        run: docker login registry.redhat.io -u '${{ secrets.RH_REGISTRY_USER }}' -p ${{ secrets.RH_REGISTRY_TOKEN }}
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
-    needs: redhat_login
     steps:
       - uses: actions/checkout@v2
-
+      - name: Log into registry.redhat.io
+        run: echo "${{ secrets.RH_REGISTRY_TOKEN }}" | docker login registry.redhat.io -u '${{ secrets.RH_REGISTRY_USER }}' --password-stdin
       - name: Run tests
         run: |
           if [ -f docker-compose.test.yml ]; then
@@ -50,7 +45,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - name: Log into registry.redhat.io
+        run: echo "${{ secrets.RH_REGISTRY_TOKEN }}" | docker login registry.redhat.io -u '${{ secrets.RH_REGISTRY_USER }}' --password-stdin
       - name: Build image
         run: docker build . --file Dockerfile --tag image
 
