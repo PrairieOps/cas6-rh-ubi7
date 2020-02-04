@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Log into registry.redhat.io
-        run: echo "${{ secrets.RH_REGISTRY_TOKEN }}" | docker login registry.redhat.io -u ${{ secrets.RH_REGISTRY_USER }} --password-stdin
+        run: docker login registry.redhat.io -u '${{ secrets.RH_REGISTRY_USER }}' -p ${{ secrets.RH_REGISTRY_TOKEN }}
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
