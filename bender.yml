@@ -1,0 +1,23 @@
+---
+- name: bender
+  hosts: all
+  vars:
+    ansible_bender:
+      base_image: registry.redhat.io/ubi7/ubi:7.7
+
+      working_container:
+        volumes:
+          - '{{ playbook_dir }}:/cas-overlay'
+        environment:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-11.0.6.10-1.el7_7.x86_64 
+
+      target_image:
+        name: cas6-rh-ubi7
+        working_dir: /cas-overlay
+        labels:
+          built-by: '{{ ansible_user }}'
+        environment:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-11.0.6.10-1.el7_7.x86_64 
+          JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"
+  roles:
+    - prairieops.cas6
