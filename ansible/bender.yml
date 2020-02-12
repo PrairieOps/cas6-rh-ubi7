@@ -8,8 +8,6 @@
       working_container:
         volumes:
           - '{{ playbook_dir }}:/cas-overlay'
-        environment:
-          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-11.0.6.10-1.el7_7.x86_64 
 
       target_image:
         name: cas6-rh-ubi7
