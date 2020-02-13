@@ -5,13 +5,16 @@
     ansible_bender:
       base_image: registry.redhat.io/ubi7/ubi:7.7
 
-      working_container:
-        volumes:
-          - '{{ playbook_dir }}:/cas-overlay'
+      #working_container:
+      #  volumes:
+      #    - '{{ playbook_dir }}:/cas-overlay'
 
       target_image:
         name: cas6-rh-ubi7
         working_dir: /cas-overlay
+        entrypoint: java -server -noverify -Xmx2048M -jar cas.war
+        #volumes:
+        #  - '{{ playbook_dir }}:/cas-overlay'
         labels:
           built-by: '{{ ansible_user }}'
         environment:
