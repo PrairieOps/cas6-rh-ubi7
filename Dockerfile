@@ -2,10 +2,11 @@
 # You'll need a redhat registry service account.
 # https://access.redhat.com/terms-based-registry/#/accounts
 FROM registry.redhat.io/ubi7/ubi:7.7 as builder
+ARG BRANCH=6.1
 RUN yum install -y java-11-openjdk-headless git;
 # Properly cache our remote data from github.
-ADD https://api.github.com/repos/PrairieOps/cas-overlay-template/git/refs/heads/6.1 version.json
-RUN git clone -b 6.1 https://github.com/PrairieOps/cas-overlay-template.git; cd cas-overlay-template; ./gradlew explodeWar
+ADD https://api.github.com/repos/PrairieOps/cas-overlay-template/git/refs/heads/${BRANCH} version.json
+RUN git clone -b ${BRANCH} https://github.com/PrairieOps/cas-overlay-template.git; cd cas-overlay-template; ./gradlew explodeWar
 
 # The deployable image.
 FROM registry.redhat.io/ubi7/ubi:7.7
