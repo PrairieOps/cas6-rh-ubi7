@@ -5,14 +5,15 @@ FROM registry.redhat.io/ubi7/ubi:7.7 as builder
 RUN yum install -y java-11-openjdk-headless git;
 # Properly cache our remote data from github.
 ADD https://api.github.com/repos/PrairieOps/cas-overlay-template/git/refs/heads/6.1 version.json
-RUN git clone -b 6.1 https://github.com/PrairieOps/cas-overlay-template.git; cd cas-overlay-template; ./gradlew build
+RUN git clone -b 6.1 https://github.com/PrairieOps/cas-overlay-template.git; cd cas-overlay-template; ./gradlew explodeWar
 
 # The deployable image.
 FROM registry.redhat.io/ubi7/ubi:7.7
 # Dependencies.
-RUN yum install -y java-11-openjdk-headless; mkdir -p /cas-overlay
+RUN yum install -y java-11-openjdk-headless
 # war file for cas overlay.
-COPY --from=builder /cas-overlay-template/build/libs/cas.war /cas-overlay/cas.war
+COPY --from=builder /cas-overlay-template/build/cas /cas
 COPY --from=builder /cas-overlay-template/etc /etc
 EXPOSE 8080 8080
-ENTRYPOINT ["java", "-server", "-noverify", "-Xmx2048M", "-jar", "/cas-overlay/cas.war"]
+WORKDIR /cas
+ENTRYPOINT ["java", "-server", "-noverify", "-Xmx2048M", "org.springframework.boot.loader.WarLauncher"]
