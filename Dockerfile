@@ -3,12 +3,12 @@
 # https://access.redhat.com/terms-based-registry/#/accounts
 FROM registry.redhat.io/ubi7-minimal:7.7 as base
 # Shared dependencies for build and deploy. Clean cache to keep final image small.
-RUN microdnf update && microdnf install java-11-openjdk-headless && rm -rf /var/cache/yum
+RUN microdnf update && microdnf install --nodocs java-11-openjdk-headless && rm -rf /var/cache/yum
 ENV JAVA_HOME=/usr/lib/jvm/jre-11-openjdk
 # Build.
 FROM base as builder
 ARG BRANCH=6.1
-RUN microdnf install git
+RUN microdnf --nodocs install git
 # Properly cache our remote data from github.
 ADD https://api.github.com/repos/PrairieOps/cas-overlay-template/git/refs/heads/${BRANCH} version.json
 RUN git clone -b ${BRANCH} https://github.com/PrairieOps/cas-overlay-template.git; cd cas-overlay-template; ./gradlew explodeWar
