@@ -13,7 +13,7 @@ ARG BRANCH=6.1
 #RUN microdnf --nodocs install git
 # Properly cache our remote data from github.
 ADD https://api.github.com/repos/PrairieOps/cas-overlay-template/git/refs/heads/${BRANCH} version.json
-RUN git clone -b ${BRANCH} https://github.com/PrairieOps/cas-overlay-template.git; cd cas-overlay-template; ./gradlew explodeWar
+RUN git clone -b ${BRANCH} https://github.com/PrairieOps/cas-overlay-template.git; cd cas-overlay-template; ./gradlew explodeWar --no-daemon
 
 # The deployable imagie.
 FROM base
