@@ -51,7 +51,7 @@ jobs:
       - name: Log into registry.redhat.io
         run: echo "${{ secrets.RH_REGISTRY_TOKEN }}" | docker login registry.redhat.io -u '${{ secrets.RH_REGISTRY_USER }}' --password-stdin
       - name: Build image
-        run: docker build . --file Dockerfile --tag image
+        run: docker build --build-arg BRANCH=$BUILD_BRANCH . --file Dockerfile --tag image
 
       - name: Log into docker.pkg.github.com
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
