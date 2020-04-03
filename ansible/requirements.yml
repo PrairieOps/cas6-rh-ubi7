@@ -1,4 +1,0 @@
----
-- src: https://github.com/PrairieOps/ansible-role-cas6
-  version: master
-  name: prairieops.cas6
