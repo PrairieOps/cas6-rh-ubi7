@@ -8,15 +8,12 @@ on:
     # Publish `v1.2.3` tags as releases.
     tags:
       - v*
-  schedule:
-    - cron:  '1 * * * *'
 
   # Run tests for any PRs.
   pull_request:
 
 env:
   IMAGE_NAME: cas6-rh-ubi7
-  BUILD_BRANCH: oulib-6.1
   REPO_NAME: ${{ github.repository }} 
 
 jobs:
@@ -31,10 +28,10 @@ jobs:
       - name: Run tests
         run: |
           if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build --build-arg BRANCH=$BUILD_BRANCH
+            docker-compose --file docker-compose.test.yml build
             docker-compose --file docker-compose.test.yml run sut
           else
-            docker build --build-arg BRANCH=$BUILD_BRANCH . --file Dockerfile
+            docker build . --file Dockerfile
           fi
 
   # Push image to GitHub Package Registry.
@@ -51,14 +48,14 @@ jobs:
       - name: Log into registry.redhat.io
         run: echo "${{ secrets.RH_REGISTRY_TOKEN }}" | docker login registry.redhat.io -u '${{ secrets.RH_REGISTRY_USER }}' --password-stdin
       - name: Build image
-        run: docker build --build-arg BRANCH=$BUILD_BRANCH . --file Dockerfile --tag image
+        run: docker build . --file Dockerfile --tag image
 
       - name: Log into docker.pkg.github.com
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Push image to docker.pkg.github.com
         run: |
-          IMAGE_ID=docker.pkg.github.com/${REPO_NAME,,}/$IMAGE_NAME-$BUILD_BRANCH
+          IMAGE_ID=docker.pkg.github.com/${REPO_NAME,,}/$IMAGE_NAME
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
