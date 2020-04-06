@@ -9,7 +9,7 @@ Create a [github access token](https://github.com/settings/tokens) with at least
 If you do:
 ```
 docker login -u USERNAME -p TOKEN docker.pkg.github.com
-docker pull docker.pkg.github.com/prairieops/cas6-rh-ubi7/cas6-rh-ubi7:latest
+docker pull docker.pkg.github.com/oulibraries/cas6-rh-ubi7/cas6-rh-ubi7:latest
 docker run --rm   --name testcas -p 127.0.0.1:8443:8443 cas6-rh-ubi7
 ```
 Then you should be able to access the CAS app in the container at https://127.0.0.1/cas.
