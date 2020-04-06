@@ -13,16 +13,14 @@ ENV JAVA_HOME=/usr/lib/jvm/jre-11-openjdk
 
 # Create builder image, and construct overlay 
 FROM base as builder
-ARG BRANCH=6.1
-# Properly cache our remote data from github.
-ADD https://api.github.com/repos/PrairieOps/cas-overlay-template/git/refs/heads/${BRANCH} version.json
-RUN git clone -b ${BRANCH} https://github.com/PrairieOps/cas-overlay-template.git; cd cas-overlay-template; ./gradlew explodeWar --no-daemon
+COPY overlay /overlay
+RUN cd overlay; ./gradlew explodeWar --no-daemon
 
 # Create deployable image, and copy overlay from builder step.
 FROM base
 # Exploded war from cas overlay.
-COPY --from=builder /cas-overlay-template/build/cas /cas
-COPY --from=builder /cas-overlay-template/etc /etc
+COPY --from=builder /overlay/build/cas /cas
+COPY --from=builder /overlay/etc /etc
 COPY wrapper.sh /cas
 EXPOSE 8080 8080
 WORKDIR /cas
