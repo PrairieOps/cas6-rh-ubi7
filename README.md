@@ -25,7 +25,7 @@ You can use environment variables to configure the CAS container on startup:
 
 ## Local Build Instructions 
 
-To download the `ubi7-minimal` base image, you'll need to authenticate with the RedHat package registry using a RedHat Developer Account(https://developers.redhat.com/) or a (Registry Service Account)[https://access.redhat.com/terms-based-registry/] (which can be created with your developer account).
+To download the `ubi7-minimal` base image, you'll need to authenticate with the RedHat package registry using a [RedHat Developer Account](https://developers.redhat.com/) or a [Registry Service Account](https://access.redhat.com/terms-based-registry/), which can be created from a developer account.
 
 `docker login -u USERNAME https://registry.redhat.io`
 
