@@ -1,4 +1,4 @@
-# Docker build for CAS 6 With Overlay 
+# Docker Build For CAS 6 With Overlay 
 
 The is the build environment for our CAS 6 Docker container. It includes a custom overlay based on the Apero [CAS overlay template](https://github.com/apereo/cas-overlay-template). 
 
