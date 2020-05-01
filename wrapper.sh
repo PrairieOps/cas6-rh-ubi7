@@ -9,4 +9,6 @@ fi
 
 # Run CAS as a standalone web application using the embedded servlet container
 # Use server optimized JVM, and don't verify bytecode.  
+
+
 exec java -server -noverify -Xmx2048M "org.springframework.boot.loader.WarLauncher"
