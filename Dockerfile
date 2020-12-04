@@ -1,10 +1,7 @@
 # Multistage build is a handy way to get the war file and base cas configuration.
 
-# You'll need a redhat registry service account to access their Universal Base Image. 
-# https://access.redhat.com/terms-based-registry/#/accounts
-
 # Create base image, and install dependencies. 
-FROM registry.redhat.io/ubi7-minimal:7.7 as base
+FROM registry.access.redhat.com/ubi7-minimal:7.7 as base
 # Shared dependencies for build and deploy. Clean cache to keep final image small.
 RUN microdnf update && microdnf install --nodocs java-11-openjdk-headless git && rm -rf /var/cache/yum
 # Add github host key to known hosts.
