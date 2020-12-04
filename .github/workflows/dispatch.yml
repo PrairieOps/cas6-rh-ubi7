@@ -1,0 +1,5 @@
+- name: Invoke workflow without inputs
+  uses: benc-uk/workflow-dispatch@v1
+  with:
+    workflow: Docker
+    token: ${{ secrets.GITHUB_TOKEN }}
