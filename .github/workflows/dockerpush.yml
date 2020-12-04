@@ -46,12 +46,12 @@ jobs:
       - name: Build image
         run: docker build . --file Dockerfile --tag image
 
-      - name: Log into docker.pkg.github.com
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: Log into ghcr.io
+        run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ secrets.CR_USER }} --password-stdin
 
-      - name: Push image to docker.pkg.github.com
+      - name: Push image to ghcr.io
         run: |
-          IMAGE_ID=docker.pkg.github.com/${REPO_NAME,,}/$IMAGE_NAME
+          IMAGE_ID=ghcr.io/${REPO_NAME,,}/$IMAGE_NAME
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
