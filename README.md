@@ -25,10 +25,6 @@ You can use environment variables to configure the CAS container on startup:
 
 ## Local Build Instructions 
 
-To download the `ubi7-minimal` base image, you'll need to authenticate with the Red Hat package registry using a Red Hat [Developer Account](https://developers.redhat.com/) or a [Registry Service Account](https://access.redhat.com/terms-based-registry/), which can be created from a developer account.
-
-`docker login -u USERNAME https://registry.redhat.io`
-
 To build the container, run:
 
 `docker build  . --file=Dockerfile --tag local-test-cas`
@@ -37,5 +33,5 @@ To build the container, run:
 
 A GitHub action to rebuild this container when the `master` branch of this repo is updated is configued at `.github/workflows/dockerpush.yml`. This action depends on GitHub Secrets:
 
-* `RH_REGISTRY_USER` - a Red Hat Registry Service Account  
-* `RH_REGISTRY_TOKEN` - a Red Hat Registry access token
+* `CR_USER` - a GitHub Container Registry username
+* `CR_PAT` - a GitHub Container Registry password/token
