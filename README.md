@@ -18,7 +18,9 @@ Once that's running, you should be able to access the CAS app in the container.
 
 You can use environment variables to configure the CAS container on startup:
 
-* `PRIVATE_GIT_SERVICE_REGISTRY` - URL for a git repo containing a file-based service registry
+* `PRIVATE_GIT_SERVICE_REGISTRY` - URL for a git repo containing a JSON-file-based [service registry](https://apereo.github.io/cas/6.1.x/services/JSON-Service-Management.html#json-service-registry)
+* `PRIVATE_GIT_DISCO_FEEDS`- URL for a git repo containing a JSON-file-based [identity provider discovery service](https://apereo.github.io/cas/6.1.x/integration/Delegate-Authentication-SAML.html#identity-provider-discovery-service)
+* `BRANCH` - the git branch pulled for the previous two repositories
 * `SPRING_APPLICATION_JSON`- JSON-formatted string containing [CAS Properties](https://apereo.github.io/cas/6.1.x/configuration/Configuration-Properties.html)
 
 ## Local Build Instructions 
