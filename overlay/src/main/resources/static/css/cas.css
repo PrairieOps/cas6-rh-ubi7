@@ -11765,6 +11765,7 @@ a {
 
 a.logo {
   color: white;
+  text-decoration: none;
 }
 
 header > .navbar {
