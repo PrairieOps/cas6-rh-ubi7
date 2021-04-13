@@ -7074,6 +7074,9 @@ button.bg-btn-submit:focus {
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
   }
+  #list-providers {
+    display: block !important;
+  }
 }
 
 @media (min-width: 768px) {
