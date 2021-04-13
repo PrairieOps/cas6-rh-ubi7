@@ -102,6 +102,10 @@ div#loginForm {
   display: none;
 }
 
+html#login-page.root-section body.login main.container div#content.row div#providers.col div#list-providers.card div.card-body div.card-text ul li a.btn.btn-block.btn-social.btn-primary {
+  display: none;
+}
+
 hr {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
