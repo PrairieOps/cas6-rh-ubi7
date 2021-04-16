@@ -102,7 +102,11 @@ div#loginForm {
   display: none;
 }
 
-html#login-page.root-section body.login main.container div#content.row div#providers.col div#list-providers.card div.card-body div.card-text ul li a.btn.btn-block.btn-social.btn-primary {
+html#login-page body.login main.container div#content.row div#providers div#list-providers div.card-body div.card-text ul li {
+  list-style: none;
+}
+
+html#login-page body.login main.container div#content.row div#providers div#list-providers div.card-body div.card-text ul li a.btn.btn-block.btn-social.btn-primary {
   display: none;
 }
 
