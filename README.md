@@ -10,6 +10,32 @@ You can use environment variables to configure the CAS container on startup:
 * `PRIVATE_GIT_DISCO_FEEDS`- URL for a git repo containing a JSON-file-based [identity provider discovery service](https://apereo.github.io/cas/6.1.x/integration/Delegate-Authentication-SAML.html#identity-provider-discovery-service) - since it's private, you'll probably need to embed credentials, eg. `https://user:pass@git.example.com/org/repo`
 * `BRANCH` - the git branch pulled for the previous two repositories
 * `SPRING_APPLICATION_JSON`- JSON-formatted string containing [CAS Properties](https://apereo.github.io/cas/6.1.x/configuration/Configuration-Properties.html) - this should be single-quoted
+* example of `SPRING_APPLICATION_JSON` configured to be behind an ssl-offloading ELB; masked for security and formatted for legibility.
+```json
+{
+  "server.servlet.context-path": "",
+  "server.ssl.enabled": false,
+  "cas.server.name": <value>,
+  "cas.server.prefix": "${cas.server.name}${server.servlet.context-path}",
+  "cas.server.tomcat.http.port": 8080,
+  "cas.server.tomcat.http.protocol": "org.apache.coyote.http11.Http11NioProtocol",
+  "cas.server.tomcat.http.enabled": true,
+  "cas.tgc.crypto.encryption.key": <secret>,
+  "cas.tgc.crypto.signing.key": <secret>,
+  "cas.webflow.crypto.signing.key": <secret>,
+  "cas.webflow.crypto.encryption.key": <secret>,
+  "cas.serviceRegistry.json.location": "file:///tmp/service-registry/<cas_env>",
+  "cas.authn.pac4j.samlDiscovery.resource[0].location": "file:///tmp/discovery-feeds/<cas_env>/<value>.json",
+  "cas.authn.pac4j.saml[0].client-name": <value>,
+  "cas.authn.pac4j.saml[0].maximumAuthenticationLifetime": 3600,
+  "cas.authn.pac4j.saml[0].keystorePassword": <secret>,
+  "cas.authn.pac4j.saml[0].privateKeyPassword": <secret>,
+  "cas.authn.pac4j.saml[0].identityProviderMetadataPath": <value>,
+  "cas.authn.pac4j.saml[0].serviceProviderEntityId": <value>,
+  "cas.authn.pac4j.saml[0].serviceProviderMetadataPath": "file:///etc/cas/config/sp-metadata.xml",
+  "cas.authn.pac4j.saml[0].keystorePath": "file:///etc/cas/config/samlKeystore.jks"
+}
+```
 
 ## Running prebuilt images
 
